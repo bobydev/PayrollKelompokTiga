@@ -18,8 +18,6 @@ class Jabatan extends Migration
             $table->string('kd_jabatan', 5)->primary();
             $table->string('nm_jabatan', 11);
             $table->string('level');
-            $table->float('gapok');
-            $table->float('uang_transport');
         });
     }
 

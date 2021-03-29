@@ -20,3 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route karyawan
+Route::resource('/karyawan', 'KaryawanController');
+
+Route::get('/karyawan/edit/{id}','KaryawanController@edit');
+
+Route::get('/karyawan/hapus/{id}','KaryawanController@destroy');
+
+// Route user
+Route::resource('/user', 'UserController');

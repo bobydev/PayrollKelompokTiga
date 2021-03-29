@@ -16,12 +16,6 @@ class Gaji extends Migration
         //
         Schema::create('gaji', function (Blueprint $table){
             $table->string('nik', 10);
-            $table->date('tgl_gaji');
-            $table->float('gapok');
-            $table->float('uang_lembur');
-            $table->float('jamsostek');
-            $table->float('pot_lain');
-            $table->string('nm_jabatan', 11);
             $table->string('nm_divisi', 20);
         });
     }

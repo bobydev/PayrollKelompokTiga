@@ -16,8 +16,10 @@ class Lembur extends Migration
         //
         Schema::create('lembur', function (Blueprint $table){
             $table->string('nik', 10);
-            $table->float('jml_lembur');
+            $table->integer('jam_lembur');
+            $table->float('uang_lembur');
             $table->date('tgl_lembur');
+            $table->float('total_gaji');
         });
     }
 

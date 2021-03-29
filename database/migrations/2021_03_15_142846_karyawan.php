@@ -20,14 +20,15 @@ class Karyawan extends Migration
             $table->text('tmpt_lahir');
             $table->date('tgl_lahir');
             $table->char('jns_kelamin', 1);
-            $table->text('stts_kawin');
-            $table->integer('jml_anak');
             $table->text('alamat');
-            $table->text('no_tlp');
+            $table->date('tgl_masuk');
+            $table->string('no_rekening');
+            $table->integer('gapok');
+            $table->text('jabatan');
             $table->string('pendidikan');
             $table->string('kd_jabatan');
             $table->string('kd_divisi', 5);
-            $table->date('tgl_pkwtt');
+
         });
     }
 
