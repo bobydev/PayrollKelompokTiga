@@ -2,73 +2,95 @@
 @section('content') 
 @include('sweetalert::alert') 
 
+<form enctype="multipart/form-data" action="" method="GET">
+@csrf
+<fieldset class="ml-md-3">
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4"> 
     <h1 class="h3 mb-0 mt-4 text-gray-800">Data Karyawan</h1>
 </div> <hr> 
 <div class="card-header py-3" align="right"> 
-    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-toggle="modal" data-target="#modal-add"> 
-        <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Karyawan
+    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modal-add"> 
+        <i class="fas fa-edit fa-sm text-white-50"></i> Edit Profil
     </button> 
 </div>
-<div class="d-sm-flex align-items-center justify-content-between mb-4"> 
-    <div class="card-body"> 
-        <div class="table-responsive"> 
-            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                <thead class="thead-dark"> 
-                    <tr align="center"> 
-                        <th>NIK</th> 
-                        <th>Nama</th> 
-                        <th>No. Rekening</th>
-                        <th>Jabatan</th> 
-                        <th>Gaji Pokok</th> 
-                        <th>Tgl. Masuk</th>
-                        <th>Opsi</th>
-                    </tr>                 
-                </thead>
-                <tbody>
-                @foreach($karyawan as $kry) 
-                    <tr align="center"> 
-                        <td>{{ $kry->nik}}</td> 
-                        <td>{{ $kry->nm_karyawan}}</td> 
-                        <td>{{ $kry->no_rekening}}</td>
-                        <td>{{ $kry->jabatan }}</td>
-                        <td>Rp. {{ number_format($kry->gapok)}}</td> 
-                        <td>{{ $kry->tgl_masuk}}</td> 
-                        <td align="center">
-                            <a href="/karyawan/detail/show/{{ $kry->nik }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"> 
-                            <!-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modal-add"> -->
-                                <i class="fas fa-edit fa-sm text-white-50"></i> Detail
-                            <!-- </button>  -->
-                            </a>
-                            <a href="/karyawan/destroy/{{$kry->nik}}" onclick="return confirm('Yakin Ingin menghapus data?')" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> 
-                                <i class="fas fa-trash-alt fa-sm text-white-50"></i> Hapus
-                            </a> 
-                        </td> 
-                    </tr>
-                @endforeach
-                </tbody> 
-            </table> 
-        </div> 
-    </div> 
+
+<div class="row mt-4">
+    <div class="col-xl-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class=""></i>
+                    Foto Profil
+                </div>
+            <div class="card-body"><img src="{{ asset('asset/img/avatar5.png') }}" width='205'/></div>
+        </div>
+    </div>
+    
+    <div class="col-xl-9">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class=""></i>
+                    Profil Karyawan
+                </div>
+            <div class="card-body">
+            <table class="table table-bordered"> 
+                <tr>
+	                <td>NIK</td>
+                    <td>{{ $karyawan->nik }}</td>
+	            </tr>
+	            <tr>
+	                <td>Nama Karyawan</td>
+                    <td>{{ $karyawan->nm_karyawan }}</td>
+	            </tr>
+	            <tr>
+	                <td>Tempat Lahir</td>
+                    <td>{{ $karyawan->tmpt_lahir }}</td>
+	            </tr>
+	            <tr>
+	                <td>Tanggal Lahir</td>
+                    <td>{{ $karyawan->tgl_lahir }}</td>
+	            </tr>
+	            <tr>
+	                <td>Jenis Kelamin</td>
+                    <td>{{ $karyawan->jns_kelamin }}</td>
+                </tr>
+            	<tr>
+	                <td>Alamat</td>
+                    <td>{{ $karyawan->alamat }}</td>
+	            </tr>
+            	<tr>
+	                <td>Tanggal Masuk</td>
+                    <td>{{ $karyawan->tgl_masuk }}</td>
+	            </tr>
+	            <tr>
+	                <td>Gaji Pokok</td>
+                    <td>Rp. {{ number_format($karyawan->gapok) }}</td>
+	            </tr>
+	            <tr>
+	                <td>Jabatan</td>
+                    <td>{{ $karyawan->jabatan }}</td>
+	            </tr>              
+            </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal inmodal fade" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true"> 
     <div class="modal-dialog modal-xs"> 
- 
-    <form action="{{ action('KaryawanController@store') }}" method="POST"> 
+    <form action="#" method="POST"> 
         @csrf
-
+        
         <div class="modal-content"> 
         <div class="modal-header"> 
-            <h4 class="modal-title">Tambah Data Karyawan</h4> 
+            <h4 class="modal-title">Edit Data Karyawan</h4> 
         </div>
 
         <div class="modal-body"> 
             <div class="form-group">
                 <label class="col-lg-20 control-label">NIK</label>
             <div class="col-lg-20">
-                <input type="text" name="addnik" id="addnik" class="form-control">
+                <input type="text" name="addnik" id="addnik" value="" class="form-control">
         </div>
              
         <div class="form-group">
@@ -150,3 +172,5 @@
         </form> 
     </div> 
 </div> 
+</fieldset>
+</form>

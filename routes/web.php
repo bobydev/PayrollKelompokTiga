@@ -26,7 +26,9 @@ Route::resource('/karyawan', 'KaryawanController');
 
 Route::get('/karyawan/edit/{id}','KaryawanController@edit');
 
-Route::get('/karyawan/hapus/{id}','KaryawanController@destroy');
+Route::get('/karyawan/detail/show/{id}', 'KaryawanController@show')->name('karyawan.detail.show/{id}');
+
+Route::get('/karyawan/destroy/{id}','KaryawanController@destroy');
 
 // Route user
 Route::resource('/user', 'UserController');

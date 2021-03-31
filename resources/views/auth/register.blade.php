@@ -31,7 +31,7 @@
             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Konfirmasi Password" required="required">
         </div>        
         <div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Registrasi</button>
+            <button type="submit" class="btn btn-success btn-lg btn-block">Daftar</button>
         </div>
     </form>
     <div class="text-center">Sudah memiliki akun? <a href="{{ route ('login')}}">Masuk</a></div>

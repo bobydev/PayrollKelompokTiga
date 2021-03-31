@@ -15,13 +15,14 @@
 <div class="style-form">
     <form action="{{ route('login') }}" method="post">
         @csrf
-        <h2 class="text-center">Log in</h2>       
+        <h2 class="text-center">Log in</h2> 
+        <p class="hint-text">Login ke E-Payroll.</p>      
         <div class="form-group">
-            <input id="email" type="email" name="email" class="form-control @error('email')is-invalid @enderror" placeholder="Email" required="required">
+            <input id="email" type="email" name="email" class="form-control @error('email')is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" autocomplete="email" autofocus required="required">
             @error('email') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
         </div>
         <div class="form-group">
-            <input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" required="required">
+            <input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" autocomplete="current-password" required="required">
             @error('password') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror 
         </div>
         <div class="form-group">
