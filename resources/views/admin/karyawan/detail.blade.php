@@ -2,7 +2,6 @@
 @section('content') 
 @include('sweetalert::alert') 
 
-<form enctype="multipart/form-data" action="" method="GET">
 @csrf
 <fieldset class="ml-md-3">
 
@@ -10,7 +9,7 @@
     <h1 class="h3 mb-0 mt-4 text-gray-800">Data Karyawan</h1>
 </div> <hr> 
 <div class="card-header py-3" align="right"> 
-    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modal-add"> 
+    <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modal-edit"> 
         <i class="fas fa-edit fa-sm text-white-50"></i> Edit Profil
     </button> 
 </div>
@@ -69,6 +68,10 @@
 	            <tr>
 	                <td>Jabatan</td>
                     <td>{{ $karyawan->jabatan }}</td>
+	            </tr>
+                <tr>
+	                <td>Pendidikan</td>
+                    <td>{{ $karyawan->pendidikan }}</td>
 	            </tr>              
             </table>
             </div>
@@ -76,11 +79,10 @@
     </div>
 </div>
 
-<div class="modal inmodal fade" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true"> 
+<div class="modal inmodal fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true"> 
     <div class="modal-dialog modal-xs"> 
-    <form action="#" method="POST"> 
+    <form action="{{route('updateKaryawan', $karyawan->nik) }}" method="GET"> 
         @csrf
-        
         <div class="modal-content"> 
         <div class="modal-header"> 
             <h4 class="modal-title">Edit Data Karyawan</h4> 
@@ -90,74 +92,73 @@
             <div class="form-group">
                 <label class="col-lg-20 control-label">NIK</label>
             <div class="col-lg-20">
-                <input type="text" name="addnik" id="addnik" value="" class="form-control">
+                <input type="text" name="nik" id="addnik" value="{{$karyawan->nik}}" class="form-control">
         </div>
              
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Nama</label>
         <div class="col-lg-20">
-            <input type="text" name="addnmkry" id="addnmkry" class="form-control">
+            <input type="text" name="nm_karyawan" id="addnmkry" value="{{$karyawan->nm_karyawan}}" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Tempat lahir</label>
         <div class="col-lg-20">
-            <input type="text" name="tmptlahir" id="tmptlahir" class="form-control">
+            <input type="text" name="tmpt_lahir" value="{{$karyawan->tmpt_lahir}}" id="tmptlahir" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Tanggal lahir</label>
         <div class="col-lg-20">
-            <input type="date" name="tglahir" id="tglahir" class="form-control">
+            <input type="date" name="tgl_lahir" value="{{$karyawan->tgl_lahir}}" id="tglahir" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Jenis Kelamin</label>
         <div class="col-lg-20">
-            <input type="radio" name="gender" id="gender" value="L" > Pria
-            <input type="radio" name="gender" id="gender" value="P" > Wanita
+            <input type="radio" name="jns_kelamin" id="gender" value="L" <?php if($karyawan['jns_kelamin']=='L') echo 'checked'?>> Pria
+            <input type="radio" name="jns_kelamin" id="gender" value="P" <?php if($karyawan['jns_kelamin']=='P') echo 'checked'?> > Wanita
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Alamat</label>
         <div class="col-lg-20">
-            <input type="text" name="alamat" id="alamat" class="form-control">
+            <input type="text" name="alamat" value="<?= $karyawan->alamat ?>" id="alamat" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Tanggal Masuk</label>
         <div class="col-lg-20">
-            <input type="date" name="tgmasuk" id="tgmasuk" class="form-control">
+            <input type="date" value="<?= $karyawan->tgl_masuk ?>" name="tgl_masuk" id="tgmasuk" class="form-control">
         </div>
-
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">No. Rekening</label>
         <div class="col-lg-20">
-            <input type="text" name="norek" id="norek" class="form-control">
+            <input type="text" name="no_rekening" value="<?= $karyawan->no_rekening ?>" id="norek" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Gaji Pokok</label>
         <div class="col-lg-20">
-            <input type="text" name="gapok" id="gapok" class="form-control">
+            <input type="text" name="gapok" value="<?= $karyawan->gapok ?>" id="gapok" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Jabatan</label>
         <div class="col-lg-20">
-            <input type="text" name="jabatan" id="jabatan" class="form-control">
+            <input type="text" name="jabatan" value="<?= $karyawan->jabatan ?>" id="jabatan" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Pendidikan</label>
         <div class="col-lg-20">
-        <select id="pendidikan" name="pendidikan" class="form-control" required> 
-                <option value="">--Pilih Pendidikan--</option> 
+        <select id="pendidikan" name="pendidikan" class="form-control" > 
+                <option value="<?= $karyawan->pendidikan ?>"><?php echo $karyawan['pendidikan'];?></option> 
                 <option value="SMA">SMA</option> 
-                <option value="D3">Diploma</option> 
-                <option value="S1">Sarjana</option>
-                <option value="S2">Magister</option>
-                <option value="S3">Doktor</option>
+                <option value="D3">D3</option> 
+                <option value="S1">S1</option>
+                <option value="S2">S2</option>
+                <option value="S3">S3</option>
             </select>
         </div>
 
@@ -173,4 +174,3 @@
     </div> 
 </div> 
 </fieldset>
-</form>

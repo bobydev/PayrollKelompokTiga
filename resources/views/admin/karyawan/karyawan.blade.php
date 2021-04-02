@@ -14,7 +14,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4"> 
     <div class="card-body"> 
         <div class="table-responsive"> 
-            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered table-striped"  id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-dark"> 
                     <tr align="center"> 
                         <th>NIK</th> 
@@ -68,32 +68,32 @@
             <div class="form-group">
                 <label class="col-lg-20 control-label">NIK</label>
             <div class="col-lg-20">
-                <input type="text" name="addnik" id="addnik" class="form-control">
+                <input type="text" name="nik" id="addnik" class="form-control">
         </div>
              
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Nama</label>
         <div class="col-lg-20">
-            <input type="text" name="addnmkry" id="addnmkry" class="form-control">
+            <input type="text" name="nm_karyawan" id="addnmkry" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Tempat lahir</label>
         <div class="col-lg-20">
-            <input type="text" name="tmptlahir" id="tmptlahir" class="form-control">
+            <input type="text" name="tmpt_lahir" id="tmptlahir" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Tanggal lahir</label>
         <div class="col-lg-20">
-            <input type="date" name="tglahir" id="tglahir" class="form-control">
+            <input type="date" name="tgl_lahir" id="tglahir" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Jenis Kelamin</label>
         <div class="col-lg-20">
-            <input type="radio" name="gender" id="gender" value="L" > Pria
-            <input type="radio" name="gender" id="gender" value="P" > Wanita
+            <input type="radio" name="jns_kelamin" id="gender" value="L" > Pria
+            <input type="radio" name="jns_kelamin" id="gender" value="P" > Wanita
         </div>
 
         <div class="form-group">
@@ -105,13 +105,13 @@
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Tanggal Masuk</label>
         <div class="col-lg-20">
-            <input type="date" name="tgmasuk" id="tgmasuk" class="form-control">
+            <input type="date" name="tgl_masuk" id="tgmasuk" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">No. Rekening</label>
         <div class="col-lg-20">
-            <input type="text" name="norek" id="norek" class="form-control">
+            <input type="text" name="no_rekening" id="norek" class="form-control">
         </div>
 
         <div class="form-group">
