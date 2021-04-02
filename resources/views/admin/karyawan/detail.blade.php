@@ -3,7 +3,6 @@
 @include('sweetalert::alert') 
 
 @csrf
-<fieldset class="ml-md-3">
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4"> 
     <h1 class="h3 mb-0 mt-4 text-gray-800">Data Karyawan</h1>
@@ -173,4 +172,3 @@
         </form> 
     </div> 
 </div> 
-</fieldset>

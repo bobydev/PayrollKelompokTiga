@@ -2,7 +2,6 @@
 @section('content') 
 @include('sweetalert::alert') 
 
-
 <div class="d-sm-flex align-items-center justify-content-between mb-4"> 
     <h1 class="h3 mb-0 mt-4 text-gray-800">Data Karyawan</h1>
 </div> <hr> 
