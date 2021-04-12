@@ -56,49 +56,37 @@
             <div class="form-group">
                 <label class="col-lg-20 control-label">NIK</label>
             <div class="col-lg-20">
-                <input type="text" name="nik" id="addnik" class="form-control" value="{{$kry->nik}}" readonly>
+                <input type="text" name="nik" id="addnik" class="form-control" value="<?= "$kry->nik"; ?>" readonly>
         </div>
              
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Nama</label>
         <div class="col-lg-20">
-            <input type="text" name="nm_karyawan" id="addnmkry" class="form-control" value="{{$kry->nm_karyawan}}" readonly>
-        </div>
-
-        <div class="form-group">
-            <label class="col-lg-20 mt-2 control-label">No. Rekening</label>
-        <div class="col-lg-20">
-            <input type="text" name="no_rekening" id="norek" class="form-control" readonly>
-        </div>
-
-        <div class="form-group">
-            <label class="col-lg-20 mt-2 control-label">Jam Lembur</label>
-        <div class="col-lg-20">
-            <input type="number" name="jam_lembur" id="jLembur" class="form-control">
+            <input type="text" name="nm_karyawan" id="addnmkry" class="form-control" value="<?= "$kry->nm_karyawan"; ?>" readonly>
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Uang Lembur</label>
         <div class="col-lg-20">
-            <input type="number" name="uang_lembur" id="uLembur" class="form-control">
+            <input type="number" name="uang_lembur" id="uLembur" class="form-control" readonly onkeyup="sum();" placeholder="0">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Total Gaji</label>
         <div class="col-lg-20">
-            <input type="number" name="tgl_masuk" id="tgmasuk" class="form-control">
+            <input type="number" name="total_gaji" id="totGaji" class="form-control" readonly placeholder="0">
         </div>
 
         <div class="form-group">
-            <label class="col-lg-20 mt-2 control-label">Tanggal Transfer</label>
+            <label class="col-lg-20 mt-2 control-label">Jam Lembur</label>
         <div class="col-lg-20">
-            <input type="date" name="no_rekening" id="norek" class="form-control">
+            <input type="number" name="jam_lembur" id="jLembur" class="form-control" onkeyup="sum();">
         </div>
 
         <div class="form-group">
-            <label class="col-lg-20 mt-2 control-label">Jam Transfer</label>
+            <label class="col-lg-20 mt-2 control-label">Waktu Lembur</label>
         <div class="col-lg-20">
-            <input type="time" name="gapok" id="gapok" class="form-control">
+            <input type="datetime-local" name="tgl_lembur" id="tgLembur" class="form-control">
         </div>
 
     </div> 
@@ -107,8 +95,26 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Batal</button> 
                     <input type="submit" class="btn btn-primary btn-send" value="Simpan">
                 </div> 
-                @endsection
+
+                <script>
+                    function sum() {
+                        var jamLembur = document.getElementById('jLembur').value;
+                        // var uangLembur = document.getElementById('uLembur').value;
+                        var result = parseFloat(jamLembur) * 30000;
+                            if (!isNaN(result)) {
+                                document.getElementById('uLembur').value = result;
+                            }
+
+                        var total_gaji = document.getElementById('uLembur').value;
+                        var hasil =parseFloat(total_gaji) + {{ $kry->gapok }};
+                            if (!isNaN(hasil)) {
+                                document.getElementById('totGaji').value = hasil;
+                            }
+                    }
+                </script>
+            @endsection
             </div>
         </form> 
+        
     </div> 
 </div> 
