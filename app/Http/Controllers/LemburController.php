@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use app\Karyawan;
+use app\Gaji;
+use app\Lembur;
 use Alert;
-use App\User;
 
-class UserController extends Controller
+class LemburController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +19,9 @@ class UserController extends Controller
     public function index()
     {
         //
-        $user = \App\User::All();
-        return view ('admin.user', ['user' => $user]);
+        $karyawan = \App\Karyawan::All();
+        $lembur = \App\Lembur::All();
+        return view ('admin.lembur.lembur', ['lembur' => $lembur, 'karyawan' => $karyawan]);
     }
 
     /**
@@ -28,6 +32,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view ('admin.lembur.input');
     }
 
     /**
@@ -39,23 +44,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $save_user = new \App\User;
-        $save_user->name = $request->get('username');
-        $save_user->email = $request->get('email');
-        $save_user->password = bcrypt('password');
+        Lembur::create($request->all());
 
-            if ($request->get('roles') == 'ADMIN'){
-                $save_user->assignRole('Admin');
-            }
-            else
-            {
-                $save_user->assignRole('user');
-            }
-
-        $save_user->save();
-        Alert::success('Tersimpan', 'Data Berhasil Disimpan');
-
-        return redirect()->route('user.index');
+        Alert::success('Pesan ','Data berhasil disimpan'); 
+        
+        return redirect('/lembur');
     }
 
     /**
@@ -87,14 +80,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $nik)
     {
         //
-        $user = User::findOrFail($nik);
-        $user->update($request->all());
-        Alert::success('Pesan ','Data berhasil diubah!'); 
-        
-        return redirect()->route('user.index');
+        $karyawan = Karyawan::findOrFail($nik);
+        $lembur = Lembur::findOrFail($nik);
+        $lembur->update($request->all());
+        Alert::success('Pesan ','Data lembur berhasil di input!'); 
+        return view ('admin.lembur.lembur', ['lembur' => $lembur,'karyawan' => $karyawan]);
     }
 
     /**

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use app\Karyawan;
+use app\Gaji;
 use Alert;
-use App\User;
 
-class UserController extends Controller
+class GajiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +18,8 @@ class UserController extends Controller
     public function index()
     {
         //
-        $user = \App\User::All();
-        return view ('admin.user', ['user' => $user]);
+        $gaji = \App\Gaji::All();
+        return view ('admin.gaji.gaji', ['gaji' => $gaji]);
     }
 
     /**
@@ -39,23 +41,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        $save_user = new \App\User;
-        $save_user->name = $request->get('username');
-        $save_user->email = $request->get('email');
-        $save_user->password = bcrypt('password');
-
-            if ($request->get('roles') == 'ADMIN'){
-                $save_user->assignRole('Admin');
-            }
-            else
-            {
-                $save_user->assignRole('user');
-            }
-
-        $save_user->save();
-        Alert::success('Tersimpan', 'Data Berhasil Disimpan');
-
-        return redirect()->route('user.index');
     }
 
     /**
@@ -90,11 +75,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $user = User::findOrFail($nik);
-        $user->update($request->all());
-        Alert::success('Pesan ','Data berhasil diubah!'); 
-        
-        return redirect()->route('user.index');
     }
 
     /**

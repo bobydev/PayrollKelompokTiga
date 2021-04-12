@@ -133,13 +133,13 @@
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">No. Rekening</label>
         <div class="col-lg-20">
-            <input type="text" name="no_rekening" value="<?= $karyawan->no_rekening ?>" id="norek" class="form-control">
+            <input type="number" name="no_rekening" value="<?= $karyawan->no_rekening ?>" id="norek" class="form-control">
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Gaji Pokok</label>
         <div class="col-lg-20">
-            <input type="text" name="gapok" value="<?= $karyawan->gapok ?>" id="gapok" class="form-control">
+            <input type="number" name="gapok" value="<?= $karyawan->gapok ?>" id="gapok" class="form-control">
         </div>
 
         <div class="form-group">

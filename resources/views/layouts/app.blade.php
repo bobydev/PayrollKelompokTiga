@@ -80,11 +80,9 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{ route('karyawan.index') }}">Data Karyawan</a>
-                                    <a class="nav-link" href="#">Data Divisi</a>
+                                    <a class="nav-link" href="{{ route('lembur.index') }}">Data Lembur</a>
+                                    <a class="nav-link" href="{{ route('gaji.index') }}">Data Gaji</a>
                                     <a class="nav-link" href="#">Data Jabatan</a>
-                                    <a class="nav-link" href="#">Data Gaji</a>
-                                    <a class="nav-link" href="#">Data Lembur</a>
-                                    <a class="nav-link" href="#">Data Cuti</a>
                                 </nav>
                             </div>
                             @endrole

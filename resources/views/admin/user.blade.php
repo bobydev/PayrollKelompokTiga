@@ -33,7 +33,7 @@
                         <td align="center">{{$r->id}}</td> 
                     @endforeach
                     <td align="center"> 
-                         <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modal-add">
+                         <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modal-edit">
                                 <i class="fas fa-edit fa-sm text-white-50"></i> Edit
                         </button> 
                         <a href="/user/hapus/{{ $row->id }}" onclick="return confirm('Yakin Ingin menghapus data?')" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> 
@@ -85,10 +85,11 @@
 
     </div> 
 </div>
+
     <div class="modal-footer"> 
         <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
         <button type="submit" class="btn btn-primary">Simpan</button> 
-    </div> 
+    </div>
 @endsection 
 </div> 
 </form> 

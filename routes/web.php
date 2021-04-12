@@ -36,3 +36,13 @@ Route::get('/karyawan/edit/{nik}', 'KaryawanController@updateKaryawan')->name('u
 
 // Route user
 Route::resource('/user', 'UserController');
+
+// Route lembur
+Route::resource('/lembur', 'LemburController');
+
+Route::get('/lembur/{id}/edit', 'LemburController@update')->name('lembur.update');
+
+// Route gaji
+Route::resource('/gaji', 'GajiController');
+
+
