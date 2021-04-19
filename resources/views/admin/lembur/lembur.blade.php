@@ -14,9 +14,8 @@
                     <tr align="center"> 
                         <th>NIK</th> 
                         <th>Nama</th> 
-                        <th>No. Rekening</th>
-                        <th>Jabatan</th> 
-                        <th>Gaji Pokok</th>
+                        <th>Total Jam Lembur</th>
+                        <th>Total Gaji</th>
                         <th>Opsi</th>
                         </tr>                 
                 </thead>
@@ -25,11 +24,10 @@
                     <tr align="center"> 
                         <td>{{ $kry->nik}}</td> 
                         <td>{{ $kry->nm_karyawan}}</td> 
-                        <td>{{ $kry->no_rekening}}</td>
-                        <td>{{ $kry->jabatan }}</td>
-                        <td>Rp. {{ number_format($kry->gapok)}}</td>  
+                        <td>{{ $kry->jam_lembur}}</td>
+                        <td>Rp. {{ number_format($kry->total_gaji)}}</td>  
                         <td align="center"> 
-                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-toggle="modal" data-target="#modal-add">
+                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-toggle="modal" data-target="#modal-add<?= $kry->nik ?>">
                                 <i class="fas fa-edit fa-sm text-white-50"></i> Entry jam lembur
                             </button> 
                         </td> 
@@ -40,81 +38,85 @@
         </div> 
     </div> 
 </div>
-
-<div class="modal inmodal fade" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true"> 
-    <div class="modal-dialog modal-xs"> 
- 
-    <form action="{{ action('LemburController@store') }}" method="POST"> 
-        @csrf
-
-        <div class="modal-content"> 
-        <div class="modal-header"> 
-            <h4 class="modal-title">Entry Data Lembur</h4> 
-        </div>
-
-        <div class="modal-body"> 
-            <div class="form-group">
-                <label class="col-lg-20 control-label">NIK</label>
+@endsection
+@section('modal')
+@foreach($karyawan as $kry) 
+<!-- Modal -->
+<div class="modal fade" id="modal-add<?= $kry->nik ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Entry Data Lembur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label class="col-lg-20 control-label">NIK</label>
             <div class="col-lg-20">
                 <input type="text" name="nik" id="addnik" class="form-control" value="<?= "$kry->nik"; ?>" readonly>
+            </div>
         </div>
-             
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Nama</label>
-        <div class="col-lg-20">
-            <input type="text" name="nm_karyawan" id="addnmkry" class="form-control" value="<?= "$kry->nm_karyawan"; ?>" readonly>
+            <div class="col-lg-20">
+                <input type="text" name="nm_karyawan" id="addnmkry" class="form-control" value="<?= "$kry->nm_karyawan"; ?>" readonly>
+            </div>
         </div>
-
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Uang Lembur</label>
-        <div class="col-lg-20">
-            <input type="number" name="uang_lembur" id="uLembur" class="form-control" readonly onkeyup="sum();" placeholder="0">
+            <div class="col-lg-20">
+                <input type="number" name="uang_lembur" id="uLembur" class="form-control" readonly onkeyup="sum();" placeholder="0">
+            </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Total Gaji</label>
-        <div class="col-lg-20">
-            <input type="number" name="total_gaji" id="totGaji" class="form-control" readonly placeholder="0">
+            <div class="col-lg-20">
+                <input type="number" name="total_gaji" id="totGaji" class="form-control" readonly placeholder="0">
+            </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Jam Lembur</label>
-        <div class="col-lg-20">
-            <input type="number" name="jam_lembur" id="jLembur" class="form-control" onkeyup="sum();">
+            <div class="col-lg-20">
+                <input type="number" name="jam_lembur" id="jLembur" class="form-control" onkeyup="sum();">
+            </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-20 mt-2 control-label">Waktu Lembur</label>
-        <div class="col-lg-20">
-            <input type="datetime-local" name="tgl_lembur" id="tgLembur" class="form-control">
-        </div>
-
-    </div> 
-                </div> 
-                <div class="modal-footer"> 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Batal</button> 
-                    <input type="submit" class="btn btn-primary btn-send" value="Simpan">
-                </div> 
-
-                <script>
-                    function sum() {
-                        var jamLembur = document.getElementById('jLembur').value;
-                        // var uangLembur = document.getElementById('uLembur').value;
-                        var result = parseFloat(jamLembur) * 30000;
-                            if (!isNaN(result)) {
-                                document.getElementById('uLembur').value = result;
-                            }
-
-                        var total_gaji = document.getElementById('uLembur').value;
-                        var hasil =parseFloat(total_gaji) + {{ $kry->gapok }};
-                            if (!isNaN(hasil)) {
-                                document.getElementById('totGaji').value = hasil;
-                            }
-                    }
-                </script>
-            @endsection
+            <div class="col-lg-20">
+                <input type="datetime-local" name="tgl_lembur" id="tgLembur" class="form-control">
             </div>
-        </form> 
+        </div>
         
-    </div> 
-</div> 
+      </div>
+      <div class="modal-footer"> 
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Batal</button> 
+        <input type="submit" class="btn btn-primary btn-send" value="Simpan">
+      </div> 
+        <script>
+            function sum() {
+                var jamLembur = document.getElementById('jLembur').value;
+                // var uangLembur = document.getElementById('uLembur').value;
+                var result = parseFloat(jamLembur) * 30000;
+                    if (!isNaN(result)) {
+                        document.getElementById('uLembur').value = result;
+                    }
+
+                var total_gaji = document.getElementById('uLembur').value;
+                var hasil =parseFloat(total_gaji) + {{ $kry->gapok }};
+                    if (!isNaN(hasil)) {
+                        document.getElementById('totGaji').value = hasil;
+                    }
+            }
+        </script>
+    </div>
+  </div>
+</div>
+@endforeach
+@endsection
+
+

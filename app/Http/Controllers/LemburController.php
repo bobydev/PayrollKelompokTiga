@@ -19,7 +19,9 @@ class LemburController extends Controller
     public function index()
     {
         //
-        $karyawan = \App\Karyawan::All();
+        $karyawan = DB::table('karyawan')
+                    ->join('lembur', 'karyawan.nik', 'lembur.nik')
+                    ->get();
         $lembur = \App\Lembur::All();
         return view ('admin.lembur.lembur', ['lembur' => $lembur, 'karyawan' => $karyawan]);
     }
@@ -32,7 +34,7 @@ class LemburController extends Controller
     public function create()
     {
         //
-        return view ('admin.lembur.input');
+        
     }
 
     /**
@@ -43,9 +45,9 @@ class LemburController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //        
         Lembur::create($request->all());
-
+ 
         Alert::success('Pesan ','Data berhasil disimpan'); 
         
         return redirect('/lembur');
@@ -83,6 +85,7 @@ class LemburController extends Controller
     public function update(Request $request, $nik)
     {
         //
+        
         $karyawan = Karyawan::findOrFail($nik);
         $lembur = Lembur::findOrFail($nik);
         $lembur->update($request->all());

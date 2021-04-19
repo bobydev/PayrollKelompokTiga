@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use app\Karyawan;
-use app\Gaji;
+use app\Absensi;
 use Alert;
 
-class GajiController extends Controller
+class AbsensiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class GajiController extends Controller
     public function index()
     {
         //
-        $gaji = \App\Gaji::All();
-        return view ('admin.gaji.gaji', ['gaji' => $gaji]);
-    }
+        $absensi = \App\Absensi::All();
+        return view ('admin.absensi.absensi', ['absensi' => $absensi]);
+    } 
 
     /**
      * Show the form for creating a new resource.

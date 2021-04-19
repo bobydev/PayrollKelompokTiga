@@ -24,8 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route karyawan
 Route::resource('/karyawan', 'KaryawanController');
 
-Route::put('/karyawan/{id}/edit', 'KaryawanController@update')->name('karyawan.update');
-
 Route::post('/karyawan/edit/{id}','KaryawanController@edit');
 
 Route::get('/karyawan/detail/show/{id}', 'KaryawanController@show')->name('karyawan.detail.show/{id}');
@@ -40,9 +38,11 @@ Route::resource('/user', 'UserController');
 // Route lembur
 Route::resource('/lembur', 'LemburController');
 
-Route::get('/lembur/{id}/edit', 'LemburController@update')->name('lembur.update');
+// Route::get('/lembur/edit/{$nik}', 'LemburController@update')->name('update');
 
-// Route gaji
-Route::resource('/gaji', 'GajiController');
+// Route::get('/lembur', 'LemburController@store');
+
+// Route absensi
+Route::resource('/absensi', 'AbsensiController');
 
 

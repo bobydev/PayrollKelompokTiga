@@ -81,8 +81,8 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{ route('karyawan.index') }}">Data Karyawan</a>
                                     <a class="nav-link" href="{{ route('lembur.index') }}">Data Lembur</a>
-                                    <a class="nav-link" href="{{ route('gaji.index') }}">Data Gaji</a>
-                                    <a class="nav-link" href="#">Data Jabatan</a>
+                                    <a class="nav-link" href="{{ route('absensi.index') }}">Data Kehadiran</a>
+                                    <a class="nav-link" href="#">Slip Gaji</a>
                                 </nav>
                             </div>
                             @endrole
@@ -127,6 +127,7 @@
                     <div class="container-fluid">
                         @yield('content')
                     </div>
+                    @yield('modal')
                 </main>
                 
                 <footer class="py-4 bg-light mt-auto">

@@ -18,7 +18,7 @@ class Lembur extends Migration
             $table->string('nik', 10);
             $table->integer('jam_lembur');
             $table->float('uang_lembur');
-            $table->date('tgl_lembur');
+            $table->datetime('tgl_lembur');
             $table->float('total_gaji');
         });
     }
