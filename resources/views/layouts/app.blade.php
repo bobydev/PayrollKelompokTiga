@@ -128,6 +128,7 @@
                         @yield('content')
                     </div>
                     @yield('modal')
+                    @yield('entry')
                 </main>
                 
                 <footer class="py-4 bg-light mt-auto">

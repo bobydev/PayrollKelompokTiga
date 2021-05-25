@@ -9,7 +9,7 @@
     <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-toggle="modal" data-target="#modal-add"> 
         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Karyawan
     </button> 
-</div>
+</div> 
 <div class="d-sm-flex align-items-center justify-content-between mb-4"> 
     <div class="card-body"> 
         <div class="table-responsive"> 

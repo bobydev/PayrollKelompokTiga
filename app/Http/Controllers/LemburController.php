@@ -19,11 +19,28 @@ class LemburController extends Controller
     public function index()
     {
         //
+        $employee = \App\Karyawan::All();
         $karyawan = DB::table('karyawan')
                     ->join('lembur', 'karyawan.nik', 'lembur.nik')
                     ->get();
         $lembur = \App\Lembur::All();
-        return view ('admin.lembur.lembur', ['lembur' => $lembur, 'karyawan' => $karyawan]);
+        return view ('admin.lembur.lembur', ['lembur' => $lembur, 'karyawan' => $karyawan, 'employee' => $employee]);
+
+        $bulan = array (1 =>   'Januari',
+				'Februari',
+				'Maret',
+				'April',
+				'Mei',
+				'Juni',
+				'Juli',
+				'Agustus',
+				'September',
+				'Oktober',
+				'November',
+				'Desember'
+			);
+	$split = explode('-', $tanggal);
+	return $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
     }
 
     /**
@@ -34,7 +51,7 @@ class LemburController extends Controller
     public function create()
     {
         //
-        
+ 
     }
 
     /**
