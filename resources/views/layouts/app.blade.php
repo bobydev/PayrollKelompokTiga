@@ -129,6 +129,8 @@
                     </div>
                     @yield('modal')
                     @yield('entry')
+                    @yield('add')
+                    @yield('edit')
                 </main>
                 
                 <footer class="py-4 bg-light mt-auto">

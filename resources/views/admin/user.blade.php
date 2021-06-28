@@ -48,7 +48,9 @@
         </div> 
     </div> 
 </div>
+@endsection
 
+@section('add')
 <div class="modal inmodal fade" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true"> 
     <div class="modal-dialog modal-xs"> 
 
@@ -95,6 +97,8 @@
 </form> 
 </div> 
 </div>
+
+
 
 
 
