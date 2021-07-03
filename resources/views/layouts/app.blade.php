@@ -95,7 +95,7 @@
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('slip.list.user') }}">
                                         Slip Gaji
                                     </a>
                                 </nav>

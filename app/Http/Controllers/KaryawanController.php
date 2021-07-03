@@ -81,6 +81,12 @@ class KaryawanController extends Controller
         return view('admin.slip.list', ['karyawan' => $karyawan]);
     }
 
+    public function slipgajiUser()
+    {
+        $karyawan = Karyawan::where('nm_karyawan', auth()->user()->name)->first();
+        return view('list-slip', ['karyawan' => $karyawan]);
+    }
+
     public function cetakSlip($nik)
     {
         $data['slip'] = DB::table('karyawan')

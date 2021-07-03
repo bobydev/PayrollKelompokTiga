@@ -33,6 +33,7 @@ Route::get('/karyawan/destroy/{id}', 'KaryawanController@destroy');
 Route::get('/karyawan/edit/{nik}', 'KaryawanController@updateKaryawan')->name('updateKaryawan');
 Route::get('/karyawan/get/{nik}', 'KaryawanController@getKaryawanByNik');
 Route::get('/karyawan/slip/gaji', 'KaryawanController@slipgaji')->name('slip.list');
+Route::get('/karyawan/slip/gaji/user', 'KaryawanController@slipgajiUser')->name('slip.list.user');
 Route::get('/karyawan/slip/cetak/{nik}', 'KaryawanController@cetakSlip')->name('slip.cetak');
 
 // Route user
