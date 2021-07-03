@@ -82,7 +82,7 @@
                                     <a class="nav-link" href="{{ route('karyawan.index') }}">Data Karyawan</a>
                                     <a class="nav-link" href="{{ route('lembur.index') }}">Data Lembur</a>
                                     <a class="nav-link" href="{{ route('absensi.index') }}">Data Kehadiran</a>
-                                    <a class="nav-link" href="#">Slip Gaji</a>
+                                    <a class="nav-link" href="{{ route('slip.list') }}">Slip Gaji</a>
                                 </nav>
                             </div>
                             @endrole

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Alert;
 use App\Karyawan;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KaryawanController extends Controller
 {
@@ -71,5 +73,24 @@ class KaryawanController extends Controller
     {
         $karyawan = Karyawan::findOrFail($nik);
         return response()->json($karyawan);
+    }
+
+    public function slipgaji()
+    {
+        $karyawan = Karyawan::all();
+        return view('admin.slip.list', ['karyawan' => $karyawan]);
+    }
+
+    public function cetakSlip($nik)
+    {
+        $data['slip'] = DB::table('karyawan')
+            ->join('lembur', 'karyawan.nik', 'lembur.nik')
+            ->join('absensi', 'karyawan.nik', 'absensi.nik')
+            ->join('shift', 'absensi.shift', 'shift.kategori')
+            ->where('karyawan.nik', $nik)
+            ->select('karyawan.nik', 'karyawan.nm_karyawan', 'karyawan.gapok', 'karyawan.jabatan', 'lembur.jam_lembur', 'lembur.uang_lembur', 'lembur.total_gaji', 'shift.jam_masuk', 'shift.jam_keluar')
+            ->first();
+        $pdf = PDF::loadView('admin.slip.cetak', $data);
+        return $pdf->download("slip-{$nik}.pdf");
     }
 }
