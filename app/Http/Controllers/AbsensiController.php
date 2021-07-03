@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Absensi;
+use App\Karyawan;
+use App\Shift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use app\Karyawan;
-use app\Absensi;
-use Alert;
 
 class AbsensiController extends Controller
 {
@@ -17,64 +17,41 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        //
+        $shifts = Shift::all();
         $absensi = \App\Absensi::All();
-        return view ('admin.absensi.absensi', ['absensi' => $absensi]);
-    } 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $karyawan = Karyawan::all();
+        $data = DB::table('absensi')
+            ->join('karyawan', 'absensi.nik', 'karyawan.nik')
+            ->join('shift', 'absensi.shift', 'shift.kategori')
+            ->select('karyawan.nik', 'karyawan.nm_karyawan', 'absensi.tgl_hadir', 'shift.jam_masuk', 'shift.jam_keluar')
+            ->get();
+        return view('admin.absensi.absensi', ['absensi' => $absensi, 'shifts' => $shifts, 'karyawan' => $karyawan, 'data' => $data]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        Absensi::create($request->all());
+        return redirect()->route('absensi.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, $nik)
     {
-        //
+        $data = Absensi::where('nik', $nik);
+        $data->update([
+            'nik' => $request->nik,
+            'shift' => $request->shift,
+        ]);
+        return redirect()->route('absensi.index');
     }
 
     /**

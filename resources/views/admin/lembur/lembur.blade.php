@@ -203,7 +203,6 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable();
             $('#nik').change(function(){
                 const nik = $('#nik').val();
                 $.ajax({
