@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
+use app\Karyawan;
+use App\Lembur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use app\Karyawan;
-use app\Gaji;
-use app\Lembur;
-use Alert;
 
 class LemburController extends Controller
 {
@@ -21,26 +20,26 @@ class LemburController extends Controller
         //
         $employee = \App\Karyawan::All();
         $karyawan = DB::table('karyawan')
-                    ->join('lembur', 'karyawan.nik', 'lembur.nik')
-                    ->get();
+            ->join('lembur', 'karyawan.nik', 'lembur.nik')
+            ->get();
         $lembur = \App\Lembur::All();
-        return view ('admin.lembur.lembur', ['lembur' => $lembur, 'karyawan' => $karyawan, 'employee' => $employee]);
+        return view('admin.lembur.lembur', ['lembur' => $lembur, 'karyawan' => $karyawan, 'employee' => $employee]);
 
-        $bulan = array (1 =>   'Januari',
-				'Februari',
-				'Maret',
-				'April',
-				'Mei',
-				'Juni',
-				'Juli',
-				'Agustus',
-				'September',
-				'Oktober',
-				'November',
-				'Desember'
-			);
-	$split = explode('-', $tanggal);
-	return $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+        $bulan = array(1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        );
+        $split = explode('-', $tanggal);
+        return $split[2] . ' ' . $bulan[(int) $split[1]] . ' ' . $split[0];
     }
 
     /**
@@ -51,7 +50,7 @@ class LemburController extends Controller
     public function create()
     {
         //
- 
+
     }
 
     /**
@@ -62,11 +61,10 @@ class LemburController extends Controller
      */
     public function store(Request $request)
     {
-        //        
         Lembur::create($request->all());
- 
-        Alert::success('Pesan ','Data berhasil disimpan'); 
-        
+
+        Alert::success('Pesan ', 'Data berhasil disimpan');
+
         return redirect('/lembur');
     }
 
@@ -101,13 +99,15 @@ class LemburController extends Controller
      */
     public function update(Request $request, $nik)
     {
-        //
-        
-        $karyawan = Karyawan::findOrFail($nik);
-        $lembur = Lembur::findOrFail($nik);
-        $lembur->update($request->all());
-        Alert::success('Pesan ','Data lembur berhasil di input!'); 
-        return view ('admin.lembur.lembur', ['lembur' => $lembur,'karyawan' => $karyawan]);
+        $lembur = Lembur::where('nik', $nik);
+        $lembur->update([
+            'jam_lembur' => $request->jam_lembur,
+            'uang_lembur' => $request->uang_lembur,
+            'tgl_lembur' => $request->tgl_lembur,
+            'total_gaji' => $request->total_gaji,
+        ]);
+        Alert::success('Pesan ', 'Data lembur berhasil di input!');
+        return redirect()->route('lembur.index');
     }
 
     /**

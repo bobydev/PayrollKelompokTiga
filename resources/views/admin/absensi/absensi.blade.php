@@ -22,26 +22,25 @@
                 </thead>
                 <tbody>
                 @foreach ($absensi as $absen)
-                <tr align = "center">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td align = "center">
-                        <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-toggle="modal" data-target="#modal-add">
-                            <i class="fas fa-edit fa-sm text-white-50"></i> Entry absensi
-                        </button>
-                        <a href="#" onclick="return confirm('Yakin Ingin menghapus data?')" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> 
+                    <tr align = "center">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td align = "center">
+                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" data-toggle="modal" data-target="#modal-add">
+                                <i class="fas fa-edit fa-sm text-white-50"></i> Entry absensi
+                            </button>
+                            <a href="#" onclick="return confirm('Yakin Ingin menghapus data?')" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"> 
                                 <i class="fas fa-trash-alt fa-sm text-white-50"></i> Hapus
                             </a> 
-                    </td>
-                </tr>  
+                        </td>
+                    </tr>  
                 @endforeach
                 </tbody> 
             </table> 
         </div> 
     </div> 
 </div>
-
-                @endsection 
+@endsection 

@@ -172,18 +172,12 @@
             </div>
         </div>
     </div>
-
         
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js">
         <script src="asset/vendor/jquery/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="asset/js/scripts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('#dataTable').DataTable();
-            } );
-        </script>
-        
+        @stack('script')
     </body>
 </html>

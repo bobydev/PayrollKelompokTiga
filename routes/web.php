@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,13 +24,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route karyawan
 Route::resource('/karyawan', 'KaryawanController');
 
-Route::post('/karyawan/edit/{id}','KaryawanController@edit');
+Route::post('/karyawan/edit/{id}', 'KaryawanController@edit');
 
 Route::get('/karyawan/detail/show/{id}', 'KaryawanController@show')->name('karyawan.detail.show/{id}');
 
-Route::get('/karyawan/destroy/{id}','KaryawanController@destroy');
+Route::get('/karyawan/destroy/{id}', 'KaryawanController@destroy');
 
 Route::get('/karyawan/edit/{nik}', 'KaryawanController@updateKaryawan')->name('updateKaryawan');
+Route::get('/karyawan/get/{nik}', 'KaryawanController@getKaryawanByNik');
 
 // Route user
 Route::resource('/user', 'UserController');
@@ -44,5 +45,3 @@ Route::resource('/lembur', 'LemburController');
 
 // Route absensi
 Route::resource('/absensi', 'AbsensiController');
-
-

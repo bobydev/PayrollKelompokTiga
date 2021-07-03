@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Karyawan;
 use Alert;
+use App\Karyawan;
+use Illuminate\Http\Request;
 
 class KaryawanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
@@ -21,65 +15,34 @@ class KaryawanController extends Controller
         return view('admin.karyawan.karyawan', ['karyawan' => $karyawan]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
-        return view ('admin.karyawan.input');
+        return view('admin.karyawan.input');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
         Karyawan::create($request->all());
 
-        Alert::success('Pesan ','Data berhasil disimpan'); 
-        
+        Alert::success('Pesan ', 'Data berhasil disimpan');
+
         return redirect('/karyawan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($nik)
     {
         //
         $karyawan_show = \App\Karyawan::findOrFail($nik);
-        return view ('admin.karyawan.detail', ['karyawan' => $karyawan_show]);
+        return view('admin.karyawan.detail', ['karyawan' => $karyawan_show]);
     }
-    
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Request $request, $nik)
     {
-        
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $nik)
     {
 
@@ -88,11 +51,11 @@ class KaryawanController extends Controller
     public function destroy($nik)
     {
         //
-        $karyawan = \App\Karyawan::findOrFail($nik); 
-        $karyawan->delete(); 
-        
-        Alert::success('Pesan ','Data berhasil dihapus'); 
-        
+        $karyawan = \App\Karyawan::findOrFail($nik);
+        $karyawan->delete();
+
+        Alert::success('Pesan ', 'Data berhasil dihapus');
+
         return redirect()->route('karyawan.index');
     }
 
@@ -100,7 +63,13 @@ class KaryawanController extends Controller
     {
         $karyawan = Karyawan::findOrFail($nik);
         $karyawan->update($request->all());
-        Alert::success('Pesan ','Data berhasil diubah!'); 
-        return view ('admin.karyawan.detail', ['karyawan' => $karyawan]);
+        Alert::success('Pesan ', 'Data berhasil diubah!');
+        return view('admin.karyawan.detail', ['karyawan' => $karyawan]);
+    }
+
+    public function getKaryawanByNik($nik)
+    {
+        $karyawan = Karyawan::findOrFail($nik);
+        return response()->json($karyawan);
     }
 }

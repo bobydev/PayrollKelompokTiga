@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lembur extends Model
 {
-    //
 
     protected $keyType = 'string';
     public $timestamps = false;
