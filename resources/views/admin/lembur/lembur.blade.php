@@ -33,7 +33,7 @@
                         <td>{{ $kry->jam_lembur}}</td>
                         <td>Rp. {{ number_format($kry->total_gaji)}}</td>  
                         <td align="center"> 
-                            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" data-toggle="modal" data-target="#modal-add<?= $kry->nik ?>">
+                            <button type="button" id="editLembur" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm" nik_pegawai="<?= $kry->nik ?>" data-toggle="modal" data-target="#modal-add<?= $kry->nik ?>">
                                 <i class="fas fa-edit fa-sm text-white-50"></i> Sunting jam lembur
                             </button> 
                         </td> 
@@ -65,7 +65,7 @@
             <div class="form-group">
                 <label class="col-lg-20 control-label">NIK</label>
                 <div class="col-lg-20">
-                    <input type="text" name="nik" id="addnik" class="form-control" value="<?= "$kry->nik"; ?>" readonly>
+                    <input type="text" name="nik" id="addnik" class="form-control nik" value="<?= "$kry->nik"; ?>" readonly>
                 </div>
             </div>
             <div class="form-group">
@@ -77,7 +77,7 @@
             <div class="form-group">
                 <label class="col-lg-20 mt-2 control-label">Uang Lembur</label>
                 <div class="col-lg-20">
-                    <input type="number" name="uang_lembur" id="uLembur{{$kry->nik}}" value="<?= $kry->uang_lembur ?>" class="form-control" readonly onkeyup="sum();" placeholder="0">
+                    <input type="number" name="uang_lembur" id="uLembur{{$kry->nik}}" value="<?= $kry->uang_lembur ?>" class="form-control" readonly placeholder="0">
                 </div>
             </div>
     
@@ -91,7 +91,7 @@
             <div class="form-group">
                 <label class="col-lg-20 mt-2 control-label">Jam Lembur</label>
                 <div class="col-lg-20">
-                    <input type="number" name="jam_lembur" id="jLembur{{$kry->nik}}" class="form-control" value="<?= "$kry->jam_lembur"; ?>" onkeyup="sum();">
+                    <input type="number" name="jam_lembur" nik-pegawai="<?= $kry->nik ?>" id="jLembur{{$kry->nik}}" class="form-control jLembur" value="<?= "$kry->jam_lembur"; ?>">
                 </div>
             </div>
     
@@ -108,29 +108,10 @@
             <input type="submit" class="btn btn-primary btn-send" value="Simpan">
           </div> 
         </form>
-        <script>
-            function sum() {
-                var jamLembur = $(`#jLembur${nik}`).val();
-                var uangLembur = $(`#uLembur${nik}`).val();
-                var result = parseFloat(jamLembur) * 30000;
-                    if (!isNaN(result)) {
-                        $(`#uLembur${nik}`).val() = result;
-                    }
-
-                var total_gaji = $(`#uLembur${nik}`).val();
-                var hasil =parseFloat(total_gaji) + {{ $kry->gapok }};
-                    if (!isNaN(hasil)) {
-                        $(`#total_gaji${nik}`).val() = hasil;
-                    }
-            }
-        </script>
     </div>
   </div>
 </div>
 @endforeach
-@endsection
-
-@section('entry')
 @foreach($employee as $emp) 
 <!-- Modal -->
 <div class="modal fade" id="modal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -165,21 +146,21 @@
           <div class="form-group">
               <label class="col-lg-15 mt-2 control-label">Uang Lembur</label>
               <div class="col-lg-15">
-                  <input type="number" name="uang_lembur" id="uLembur" class="form-control" readonly onkeyup="sum();" placeholder="0">
+                  <input type="number" name="uang_lembur" id="uang_lembur" class="form-control" readonly placeholder="0">
               </div>
           </div>
   
           <div class="form-group">
               <label class="col-lg-20 mt-2 control-label">Total Gaji</label>
               <div class="col-lg-20">
-                  <input type="number" name="total_gaji" id="totGaji" class="form-control" readonly placeholder="0">
+                  <input type="number" name="total_gaji" id="totGAJI" class="form-control" readonly placeholder="0">
               </div>
           </div>
   
           <div class="form-group">
               <label class="col-lg-20 mt-2 control-label">Jam Lembur</label>
               <div class="col-lg-20">
-                  <input type="number" name="jam_lembur" id="jLembur" class="form-control">
+                  <input type="number" name="jam_lembur" id="addJamLembur" class="form-control">
               </div>
           </div>
   
@@ -202,47 +183,63 @@
 @endsection
 @push('script')
     <script>
+        // function sum() {
+        //     var jamLembur = $(`#jLembur${nik}`).val();
+        //     var uangLembur = $(`#uLembur${nik}`).val();
+        //     var result = parseFloat(jamLembur) * 30000;
+        //         if (!isNaN(result)) {
+        //             $(`#uLembur${nik}`).val() = result;
+        //         }
+
+        //     var total_gaji = $(`#uLembur${nik}`).val();
+        //     var hasil =parseFloat(total_gaji) + {{ $kry->gapok }};
+        //         if (!isNaN(hasil)) {
+        //             $(`#total_gaji${nik}`).val() = hasil;
+        //         }
+        // }
         $(document).ready(function() {
+            let nik = '';
+            let gapok = '';
             $('#nik').change(function(){
-                const nik = $('#nik').val();
+                nik = $('#nik').val();
                 $.ajax({
                     url: `/karyawan/get/${nik}`,
                     type: "get",
                     dataType: "json",
                     success: function(data){
                         let nama_kry = data.nm_karyawan;
+                        gapok = data.gapok;
                         $('#nm_karyawan').val(nama_kry);
-                        $('#totGaji').val(data.gapok);
+                        $('#totGAJI').val(gapok);
                     }
                 });
             });
+            $('#addJamLembur').keyup(function(){
+                let uLembur = $(this).val() * 30000;
+                $('#uang_lembur').val(uLembur);
+                let totalGaji = +gapok + +uLembur;
+                if (!isNaN(totalGaji)) {
+                    $('#totGAJI').val(totalGaji);
+                }
+            });
+
 
             let totGaji = $('#totGaji').val();
-            $('#jLembur').keyup(function(){
-                let uLembur = $(this).val() * 30000;
-                $('#uLembur').val(uLembur);
-                let totalGaji = +$('#totGaji').val() + +uLembur;
-                $('#totGaji').val(totalGaji);
+            $('.jLembur').keyup(function(){
+                let nik = $(this).attr('nik-pegawai');
+                var jamLembur = $(`#jLembur${nik}`).val();
+                var uangLembur = $(`#uLembur${nik}`).val();
+                var result = parseFloat(jamLembur) * 30000;
+                    if (!isNaN(result)) {
+                        $(`#uLembur${nik}`).val(result);
+                    }
+                var total_gaji = $(`#uLembur${nik}`).val();
+                var hasil =parseFloat(total_gaji) + {{ $kry->gapok }};
+                if (!isNaN(hasil)) {
+                    $(`#total_gaji${nik}`).val(hasil);
+                }
             });
         } );
-
-
-            // function sum() {
-            //     var jamLembur = document.getElementById('jLembur').value;
-            //     // var uangLembur = document.getElementById('uLembur').value;
-            //     var result = parseFloat(jamLembur) * 30000;
-            //         if (!isNaN(result)) {
-            //             document.getElementById('uLembur').value = result;
-            //         }
-
-            //     var total_gaji = document.getElementById('uLembur').value;
-            //     let gapok = $('#totGaji').val();
-            //     var hasil =parseFloat(total_gaji) + gapok;
-            //         if (!isNaN(hasil)) {
-            //             document.getElementById('totGaji').value = hasil;
-            //         }
-            //     }
-
     </script>
 @endpush
 
