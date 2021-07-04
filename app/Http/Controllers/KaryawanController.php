@@ -90,9 +90,9 @@ class KaryawanController extends Controller
     public function cetakSlip($nik)
     {
         $data['slip'] = DB::table('karyawan')
-            ->join('lembur', 'karyawan.nik', 'lembur.nik')
-            ->join('absensi', 'karyawan.nik', 'absensi.nik')
-            ->join('shift', 'absensi.shift', 'shift.kategori')
+            ->leftJoin('lembur', 'karyawan.nik', 'lembur.nik')
+            ->leftJoin('absensi', 'karyawan.nik', 'absensi.nik')
+            ->leftJoin('shift', 'absensi.shift', 'shift.kategori')
             ->where('karyawan.nik', $nik)
             ->select('karyawan.nik', 'karyawan.nm_karyawan', 'karyawan.gapok', 'karyawan.jabatan', 'lembur.jam_lembur', 'lembur.uang_lembur', 'lembur.total_gaji', 'shift.jam_masuk', 'shift.jam_keluar')
             ->first();

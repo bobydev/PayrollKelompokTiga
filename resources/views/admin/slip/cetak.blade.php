@@ -73,7 +73,14 @@
         </tr>
         <tr>
             <td colspan="2"><strong>TOTAL GAJI</strong></td>
-            <td align="right" style="color:green;font-weight:bold"><?= number_format($slip->total_gaji); ?></td>
+            <td align="right" style="color:green;font-weight:bold">
+                @php
+                    if($slip->total_gaji == 0){
+                        $total_gaji = $slip->gapok;
+                    } else $total_gaji = $slip->total_gaji;
+                @endphp
+                <?= number_format($total_gaji) ?>
+            </td>
         </tr>
     </table>
 </body>
